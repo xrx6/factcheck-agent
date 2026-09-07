@@ -15,7 +15,8 @@
 ## 目录
 
 ```
-data/dataset.json    自建标注数据集(目标 30~50 条,手工标注)
+data/dataset.json    标注集:自建条目,带人工标签(A 层金标)
+data/test_set.json   测试输入集:课程真实样例 30 条(去重清洗过,标签待人工补标)
 solve.py             核查引擎(待写)
 eval.py              评测脚本(待写)
 output/results.json  引擎输出
