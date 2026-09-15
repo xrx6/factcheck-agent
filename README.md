@@ -17,9 +17,11 @@
 ```
 data/dataset.json    标注集:自建条目,带人工标签(A 层金标)
 data/test_set.json   测试输入集:课程真实样例 30 条(去重清洗过,标签待人工补标)
-solve.py             核查引擎(待写)
-eval.py              评测脚本(待写)
+solve.py             核查引擎 v0:纯 LLM 直接判断(两步判决 prompt + 重试 + 兜底)
+eval.py              评测脚本:accuracy / macro-F1 / 混淆矩阵 / 分类明细 / 标签分布
+requirements.txt     依赖(仅 openai)
 output/results.json  引擎输出
+output/eval_report.json  评测报告
 reference/           上学期同题实现的演进存档(空模板 → 检索转折 → 690 行最终版)
 ```
 
@@ -32,12 +34,25 @@ reference/           上学期同题实现的演进存档(空模板 → 检索�
 ## 环境要求
 
 - Python 3.10+
-- 依赖安装:`pip install openai`
-- 复制 `.env.example` 为 `.env`,填入 `GLM_API_KEY`
+- 依赖安装:`pip install -r requirements.txt`
+- 复制 `.env.example` 为 `.env`,填入 `GLM_API_KEY`(可选 `GLM_BASE_URL`/`GLM_MODEL`)
+
+## 快速开始
+
+```bash
+cp .env.example .env        # 填入 GLM_API_KEY
+pip install -r requirements.txt
+
+python solve.py             # 引擎 → output/results.json
+python eval.py              # 评测 → output/eval_report.json
+```
+
+常用参数:`python solve.py --input data/test_set.json --limit 5`(只跑前 5 条调试);
+`python eval.py --pred output/results.json`(换预测文件对比)。
 
 ## 版本路线(每版跑一次 eval,分数记进 CHANGELOG)
 
-- **v0** 纯 LLM 直接判断(无检索)——先打通「引擎 → 输出 → 评测」闭环
+- **v0** ✅ 纯 LLM 直接判断(无检索)——「引擎 → 输出 → 评测」闭环已打通,分数待补
 - **v1** 加「事实拆解」:先提取可验证的 claim,再逐条判断
 - **v2** 加搜索取证:拆解 → 搜索 → 证据判决(检索方案届时选:GLM 搜索 API / Playwright+Bing)
 - **v3** 打磨:并发、兜底、prompt 迭代——复刻上学期走过的路

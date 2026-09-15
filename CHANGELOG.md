@@ -2,6 +2,10 @@
 
 > 最新写最上面,一次改动一行。提交代码前先在这里加一行,再跑 git 三连。
 
+## 2026-09-15
+
+- v0 闭环落地:`solve.py` 纯 LLM 三分类引擎(两步判决 prompt、citation/字面\n 清洗、重试+兜底判 1)、`eval.py` 评测(acc/macro-F1/混淆/分类明细/分布)、requirements.txt;解析与指标经假数据自测通过,API 实跑分数待补
+
 ## 2026-09-08
 
 - 仓库从 swe-agent/project 独立,历史保留
