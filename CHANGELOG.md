@@ -4,6 +4,7 @@
 
 ## 2026-09-15
 
+- 调研落地:v1 拆解版引擎——SAFE 式自包含 claim 拆解 + RefChecker 式逐条三值判决 + 规则聚合(核心矛盾→0/细节矛盾→1/否则→2),失败降级 v0 基线;`--strategy direct` 保留 v0;假 client 全链路自测 12 项通过
 - v0 闭环落地:`solve.py` 纯 LLM 三分类引擎(两步判决 prompt、citation/字面\n 清洗、重试+兜底判 1)、`eval.py` 评测(acc/macro-F1/混淆/分类明细/分布)、requirements.txt;解析与指标经假数据自测通过,API 实跑分数待补
 
 ## 2026-09-08
